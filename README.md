@@ -1,4 +1,4 @@
-# CS3520-COA
+# CS3520-COA: Assignment 1 - Reversible Prime Squares
 
 Compiled the C source file on Fedora using g++, the program was also tested on windows using gcc. 
 The program however, does not compile successfully on Fedora when gcc is used for compilation.
