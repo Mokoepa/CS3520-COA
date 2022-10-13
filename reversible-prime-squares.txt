@@ -1,0 +1,16 @@
+# =========================================================================================================
+# @Author: Lipholo N.
+# @Student No.: 202000868
+# @Purpose: The program that determines and prints the first 10 reversible prime numbers in machine code
+# @Date: October 2022
+# @Contact: nelipholo@gmail.com
+# @github: https://github.com/Mokoepa/Reversible-Prime-Squares
+# ==========================================================================================================
+
+
+
+
+
+# call isNotPalindrome
+jal isNotPalindrome
+ move $t2, $v0 # Store the truth value of isNotPalindrome

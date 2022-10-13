@@ -1,13 +1,24 @@
+
+/***********************************************************************************************************
+// @Author: Lipholo N.
+// @Student No.: 202000868
+// @Purpose: The program that determines and prints the first 10 reversible prime numbers in c
+// @Date: October 2022
+// @Contact: nelipholo@gmail.com
+// @github: https://github.com/Mokoepa/Reversible-Prime-Squares
+************************************************************************************************************/
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
 
-bool isPrime(int num); // return true when a number is prime
-int square(int num); // return (num * num)
-bool isSquareNum(int num); // return true if num is a square num
+bool isPrime(int num);  // return true if a number is prime
+int square(int num);    // return (num * num) - could have used pow() instead - Please refer to README.md as to why pow() was possibly not used
+int root(int num);      // return sqrt(number)
+bool isSquareNum(int num);     // return true if num is a square num
 int numReverse(int num);       // return the reverse of num
 bool isNotPalindrome(int num); // return true if num is not a palindrome
-void printReversiblePrimeNumbers(); // print a list of reversible prime numbers to they
+void printReversiblePrimeNumbers(); // print a list of reversible prime squares to the screen/terminal
 
 int main()
 {
@@ -35,16 +46,24 @@ bool isPrime(int num)
 
 int square(int num)
 {
-  return (num * num);
+  return (num * num); // could have used pow() instead - Refer to README.md as to why pow() was possibly not used
+}
+
+int root(int num) 
+{
+  int res = num;
+  for (int i = 0; i < (num/2); i++)
+  {
+    res = (res + num / res) / 2;
+  }
+  return res;
 }
 
 bool isSquareNum(int num)
 {
-  bool flag = false;
-  if (square(sqrt(num)) == num)
-  {
+  bool flag = 0;
+  if (square(root(num)) == num)
     flag = true;
-  }
   return flag;
 }
 
@@ -72,26 +91,26 @@ bool isNotPalindrome(int num)
 
 void printReversiblePrimeNumbers()
 {
-  int index = 0, count = 1, num;
+  int index = 0, count = 1, num, SIZE = 10;
   bool set = false;
   for (int i = 0; i <= count; i++)
   {
     if (isPrime(i))
     {
       num = square(i);
-      if (isNotPalindrome(num) && isPrime(sqrt(numReverse(num))) && isSquareNum(numReverse(num)))
+      int numRev = numReverse(num);
+      if (isNotPalindrome(num) && isPrime(root(numRev)) && isSquareNum(numRev))
       {
-        // printf("running");
         set = 1;
-        while(set && (index < 10))
+        while(set && (index < SIZE))
         {
-          printf("%d \n", num);
-          set = 0;
+          printf("%i \n", num);
+          set = 0; // reset - To get out of the  while loop
           index++;
         }
       }
     }
     count++;
-    if (index == 10) return;
+    if (index == SIZE) return; // Exit the non return type function
   }
 }
