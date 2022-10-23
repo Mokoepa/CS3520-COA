@@ -2,7 +2,7 @@
 /***********************************************************************************************************
 // @Author: Lipholo N.
 // @Student No.: 202000868
-// @Purpose: The program that determines and prints the first 10 reversible prime numbers in c
+// @Purpose: The program that determines and prints the first 10 reversible prime squares in c
 // @Date: October 2022
 // @Contact: nelipholo@gmail.com
 // @github: https://github.com/Mokoepa/Reversible-Prime-Squares

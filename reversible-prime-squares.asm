@@ -1,7 +1,7 @@
 # =========================================================================================================
 # @Author: Lipholo N.
 # @Student No.: 202000868
-# @Purpose: The program that determines and prints the first 10 reversible prime numbers in MIPS assembly
+# @Purpose: The program that determines and prints the first 10 reversible prime squares in MIPS assembly
 # @Date: October 2022
 # @Contact: nelipholo@gmail.com
 # @github: https://github.com/Mokoepa/Reversible-Prime-Squares
