@@ -82,8 +82,8 @@ void printReversiblePrimeNumbers()
 {
   int index = 0, count = 1, SIZE = 10;
   bool set = false;
-  for (int i = 0; i < count; i++)
-  {
+  printf("List of reversible prime squares: \n");
+  for (int i = 0; i < count; i++) {
     if (isPrime(i))
     {
       int num = squareNum(i);
