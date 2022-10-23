@@ -7,10 +7,3 @@
 # @github: https://github.com/Mokoepa/Reversible-Prime-Squares
 # ==========================================================================================================
 
-
-
-
-
-# call isNotPalindrome
-jal isNotPalindrome
- move $t2, $v0 # Store the truth value of isNotPalindrome

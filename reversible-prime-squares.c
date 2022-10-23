@@ -13,9 +13,8 @@
 #include <math.h>
 
 bool isPrime(int num);  // return true if a number is prime
-int square(int num);    // return (num * num) - could have used pow() instead - Please refer to README.md as to why pow() was possibly not used
-int root(int num);      // return sqrt(number)
-bool isSquareNum(int num);     // return true if num is a square num
+int squareNum(int num);    // return (num * num) - could have used pow() instead - Please refer to README.md as to why pow() was possibly not used
+bool isSquareNum(int num, int i);     // return true if num is a square num
 int numReverse(int num);       // return the reverse of num
 bool isNotPalindrome(int num); // return true if num is not a palindrome
 void printReversiblePrimeNumbers(); // print a list of reversible prime squares to the screen/terminal
@@ -44,25 +43,15 @@ bool isPrime(int num)
   return flag;
 }
 
-int square(int num)
+int squareNum(int num)
 {
   return (num * num); // could have used pow() instead - Refer to README.md as to why pow() was possibly not used
 }
 
-int root(int num) 
-{
-  int res = num;
-  for (int i = 0; i < (num/2); i++)
-  {
-    res = (res + num / res) / 2;
-  }
-  return res;
-}
-
-bool isSquareNum(int num)
+bool isSquareNum(int num, int i)
 {
   bool flag = 0;
-  if (square(root(num)) == num)
+  if (squareNum(numReverse(i)) == num)
     flag = true;
   return flag;
 }
@@ -91,18 +80,18 @@ bool isNotPalindrome(int num)
 
 void printReversiblePrimeNumbers()
 {
-  int index = 0, count = 1, num, SIZE = 10;
+  int index = 0, count = 1, SIZE = 10;
   bool set = false;
-  for (int i = 0; i <= count; i++)
+  for (int i = 0; i < count; i++)
   {
     if (isPrime(i))
     {
-      num = square(i);
+      int num = squareNum(i);
       int numRev = numReverse(num);
-      if (isNotPalindrome(num) && isPrime(root(numRev)) && isSquareNum(numRev))
+      if (isNotPalindrome(num) && isPrime(numReverse(i)) && isSquareNum(numRev, i))
       {
         set = 1;
-        while(set && (index < SIZE))
+        if (set && (index < SIZE))
         {
           printf("%i \n", num);
           set = 0; // reset - To get out of the  while loop
