@@ -94,7 +94,6 @@ void printReversiblePrimeNumbers()
         if (set && (index < SIZE))
         {
           printf("%i \n", num);
-          set = 0; // reset - To get out of the  while loop
           index++;
         }
       }

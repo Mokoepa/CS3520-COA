@@ -174,7 +174,6 @@ printReversiblePrimeNumbers:
             li $v0, 1
             syscall
                   # continue
-            move $s4, $zero   # set = 0
             add $s2, $s2, 1   # index++
             # j endIfIsNotPrime
       isNotPrime:
