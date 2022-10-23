@@ -107,8 +107,7 @@ isNotPalindrome:
             lw $ra, 0($sp)
             add $sp, $sp, 8
             jr $ra
-# Implementation of printReversiblePrimeNumbers()
-      .ent printReversiblePrimeNumbers      
+# Implementation of printReversiblePrimeNumbers()    
 printReversiblePrimeNumbers:
       sub $sp, $sp, 36
       sw $ra, 0($sp)
@@ -193,4 +192,3 @@ printReversiblePrimeNumbers:
             lw $ra 0($sp)
             add $sp, $sp, 36
             jr $ra
-            .end printReversiblePrimeNumbers
