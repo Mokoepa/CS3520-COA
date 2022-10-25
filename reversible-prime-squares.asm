@@ -13,13 +13,13 @@
 .globl main
 main:
             # Display message
-      li $v0, 4
+      ori $v0, $zero, 4
       la $a0, msg
       syscall
             # Function call
       jal printReversiblePrimeNumbers
             # Exit program
-      li $v0, 10
+      ori $v0, $zero, 10
       syscall
 # Implementation of isPrime(int num)
 isPrime:
@@ -28,22 +28,23 @@ isPrime:
       li $t2, 2 # Set factors to two - prime has two factors
       is_prime_loop:
             bgt $t1, $a0, checkFactors
-            rem $t3, $a0, $t1
-            bnez $t3, endofForLoop_prime
+            div $a0, $t1
+            mfhi $t3 
+            bne $t3, $zero, endOfForLoop_prime
             addi $t9, $t9, 1 # factors++ - increase number of factors by 1
             addi $t1, $t1, 1 # i++
             j is_prime_loop
-      endofForLoop_prime:
+      endOfForLoop_prime:
             addi $t1, $t1, 1 # i++
             j is_prime_loop 
       checkFactors:
-            li $t3, 1
+            ori $t3, $zero, 1
             beq $t9, $t2, True # is number of factors 2?
             j exitIsPrime
       True:
-            move $v0, $t3
+            addu $v0, $zero, $t3
       exitIsPrime:
-            move $t9, $zero
+            addu $t9, $zero, $zero
             jr $ra
 # Implementation of squareNum(int num)
 squareNum:
@@ -52,34 +53,35 @@ squareNum:
       jr $ra
 # Implementation of isSquareNum(int num, i)
 isSquareNum:
-      sub $sp, $sp, 12
+      addi $sp, $sp, -12
       sw $ra, 0($sp)
       sw $s6, 4($sp)
       sw $s7, 8($sp)
 
-      li $v1, 0 # bool flag = 0
-      move $a0, $t6
+      ori $v1, $zero, 0 # bool flag = 0
+      addu $a0, $t6, $zero
       jal squareNum
       bne $v0, $s6, isFalse # (sqtrNum(num) != num)
       isTrue:
-            move $v0, $v1
-            add $v0, $v0, 1 # flag = true
+            addu $v0, $v1, $zero
+            addi $v0, $v0, 1 # flag = true
             j exitIsSquareNum
       isFalse:
-            move $v0, $zero
+            addu $v0, $zero,$zero
             j exitIsSquareNum
       exitIsSquareNum:
             lw $s7, 8($sp)
             lw $s6, 4($sp)
             lw $ra, 0($sp)
-            add $sp, $sp, 12
+            addi $sp, $sp, 12
             jr $ra
 # Implementation of numReverse
 numReverse:
-      add $v0, $zero, 0 # int reverse = 0
+      addi $v0, $zero, 0 # int reverse = 0
       loopNumReverse:
-            ble $a0, 0, exitNumReverse
-            li $t2, 10 # store 10 into register $t2
+            slti $t2, $a0, 1
+            bne $t2, $zero, exitNumReverse
+            ori $t2, $zero, 10 # store 10 into register $t2
             div $a0, $t2
             mfhi $t0
             mult $v0, $t2 # reverse * 10
@@ -92,24 +94,24 @@ numReverse:
             jr $ra
 # Implementation of isNotPalindrome(int num)
 isNotPalindrome:
-      sub $sp, $sp, 8
+      addi $sp, $sp, -8
       sw $ra, 0($sp)
       sw $s0, 4($sp)
-      move $s0, $a0 # $s0 <- argument
-      li $v1, 1 # bool flag = true
+      addu $s0, $zero, $a0 # $s0 <- argument
+      ori $v1, $zero, 1 # bool flag = true
       jal numReverse # a function call: numReverse(num)
       add $t0, $v0, $zero # store the result of the function call in $t0
-      move $v0, $v1
+      addu $v0, $zero, $v1
       bne $s0, $t0, exitIsNotPalindrome # if ($a0 != $t0) goto exit
-      move $v0, $zero # if (num == numReverse(num)) set flag = false
+      addu $v0, $zero, $zero # if (num == numReverse(num)) set flag = false
       exitIsNotPalindrome:
             lw $s0, 4($sp)
             lw $ra, 0($sp)
-            add $sp, $sp, 8
+            addi $sp, $sp, 8
             jr $ra
 # Implementation of printReversiblePrimeNumbers()    
 printReversiblePrimeNumbers:
-      sub $sp, $sp, 36
+      addi $sp, $sp, -36
       sw $ra, 0($sp)
       sw $s0, 4($sp)    # holds $a0
       sw $s1, 8($sp)    # holds SIZE
@@ -120,64 +122,64 @@ printReversiblePrimeNumbers:
       sw $s6, 28($sp)
       sw $s7, 32($sp)
 
-      li $s1, 10  # int SIZE = 10
-      li $s2, 0   # int index = 0
-      li $s3, 1   # int count = 1
-      li $s4, 0   # bool set = false
-      li $s5, 1   # load value 1 into $s5
-      li $s7, 0   # int i = 0
+      ori $s1, $zero, 10  # int SIZE = 10
+      ori $s2, $zero, 0   # int index = 0
+      ori $s3, $zero, 1   # int count = 1
+      ori $s4, $zero, 0   # bool set = false
+      ori $s5, $zero, 1   # load value 1 into $s5
+      ori $s7, $zero, 0   # int i = 0
       print_forLoop:
-            bgt $s7, $s3, end_forLoop
-            move $a0, $s7     # $a0 <- i
+            slt $t7, $s3, $s7
+            bne $t7, $zero, end_forLoop
+            addu $a0, $zero, $s7     # $a0 <- i
                   # call isPrime
             jal isPrime       # check whether 'i' is a prime number
             bne $v0, $s5, isNotPrime
                   # call squareNum
             jal squareNum
-            move $s0, $v0     # $s0, <- square(int i) , num = $s0
+            addu $s0, $zero, $v0     # $s0, <- square(int i) , num = $s0
                   # call numReverse
-            move $a0, $s0
+            addu $a0, $zero, $s0
             jal numReverse
-            move $s6, $v0     # #s6 <- numReverse(int num) , numRev = $s6
+            addu $s6, $zero, $v0     # #s6 <- numReverse(int num) , numRev = $s6
                   # call isNotPalindrome
-            move $a0, $s0     # $a0 <- num
+            addu $a0, $zero, $s0     # $a0 <- num
             jal isNotPalindrome
-            move $t7, $v0     # $t7 <- isNotPalindrome(int num)
+            addu $t7, $zero, $v0     # $t7 <- isNotPalindrome(int num)
                   # call numReverse
-            move $a0, $s7     # $a0 <- i
+            addu $a0, $zero, $s7     # $a0 <- i
             jal numReverse
-            move $t6, $v0     # $t6 <- numReverse(i)
+            addu $t6, $zero, $v0     # $t6 <- numReverse(i)
                   # call isSquareNum
-            move $a0, $s6     # 
+            addu $a0, $zero, $s6     
             jal isSquareNum   # isSquareNum($s6, $s7)
-            move $t4, $v0     # $t4 <- isSquareNum($s6, $s7)
+            addu $t4, $zero, $v0     # $t4 <- isSquareNum($s6, $s7)
                   # call is prime
-            move $a0, $t6     # $a0 <- numReverse(i)
+            addu $a0, $zero, $t6     # $a0 <- numReverse(i)
             jal isPrime
-            move $t5, $v0     # $t5 <- isPrime(sqrtNum(numReverse(num)))
+            addu $t5, $zero, $v0     # $t5 <- isPrime(sqrtNum(numReverse(num)))
                   # inner if statement
             and $t8, $t4, $t5  
             and $s4, $t7, $t8
             bne $s4, $s5, isNotPrime
-            move $s4, $s5     # set = 1 == $s4 <- 1
+            addu $s4, $zero, $s5     # set = 1 == $s4 <- 1
                   # innermost if statement
             slt $t9, $s2, $s1 #  true if index < SIZE
             bne $s4, $t9, isNotPrime
                   # print a new line
-            li $v0, 4
+            ori $v0, $zero, 4
             la $a0, newLine
             syscall
                   # print num - reversiblePrimeSquare
-            move $v0, $s0
+            addu $v0, $zero, $s0
             add $a0, $zero, $v0
-            li $v0, 1
+            ori $v0, $zero, 1
             syscall
                   # continue
-            add $s2, $s2, 1   # index++
-            # j endIfIsNotPrime
+            addi $s2, $s2, 1   # index++
       isNotPrime:
-            add $s3, $s3, 1   # count++
-            add $s7, $s7, 1   # i++
+            addi $s3, $s3, 1   # count++
+            addi $s7, $s7, 1   # i++
             bne $s2, $s1, print_forLoop   # index != SIZE
             j end_forLoop
       end_forLoop:
@@ -190,5 +192,5 @@ printReversiblePrimeNumbers:
             lw $s1, 8($sp)
             lw $s0, 4($sp)
             lw $ra 0($sp)
-            add $sp, $sp, 36
+            addi $sp, $sp, 36
             jr $ra
