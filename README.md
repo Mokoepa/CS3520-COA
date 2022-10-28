@@ -1,12 +1,18 @@
 # CS3520-COA: Assignment 1 - Reversible Prime Squares
 
-Compiled the C source file on Fedora using g++, the program was also tested on windows using gcc. 
-The program however, does not compile successfully on Fedora when gcc is used for compilation.
-This (line 4 above) is true when the #include <math.h> is part of out program, false otherwise.
-The result of compiling using gcc leads to the following error message:
+A program that prints N reversible prime squares, where N is 10 in our case.
+The program is implemented in c and MIPS assembly programming language wich in turn gets coverted to machine code (in Hexadecimal). 
+A text file includes a machine code version of the program as per the MIPS assembly program.
 
-  /usr/bin/ld: /tmp/ccWDTvqO.o: in function `isSquareNum':
-  reversible-prime-squares.c:(.text+0x8f): undefined reference to `sqrt'
-  /usr/bin/ld: /tmp/ccWDTvqO.o: in function `printReversiblePrimeNumbers':
-  reversible-prime-squares.c:(.text+0x1bf): undefined reference to `sqrt'
-  collect2: error: ld returned 1 exit status
+A program turns to take a while to give outputs as the numbers get larger.
+An observation was made that a lot of the time is spent in the isPrime() function - As per MIPS implementation and simulation. 
+As such, this would be an authors first step in getting the program to be a bit faster in giving outputs.
+
+Compilers Used:
+1. gcc and g++
+
+Assembly Language Used:
+1. MIPS assembly for the MIPS processor (32-bit word instruction)
+
+The comments/documentation in programs directly refer to a higher level implementation of the program
+which simply implies that higher level versions are used as pseusocodes for lower level versions.
